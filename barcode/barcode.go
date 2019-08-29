@@ -1,26 +1,25 @@
-package luhn
+package barcode
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/neonxp/checksum"
 )
 
-// Check number is correct by luhn algorithm
+// Check barcode
 func Check(number string) error {
-	mod := len(number) % 2
 	sum := 0
-	for i, ch := range number {
+	numbers := strings.Split(number, "")
+	l := len(numbers)
+	for i := l; i > 0; i-- {
+		ch := numbers[i-1]
 		num, err := strconv.Atoi(string(ch))
 		if err != nil {
 			return checksum.ErrInvalidNumber
 		}
-		if i%2 == mod {
-			if num < 5 {
-				sum += num * 2
-			} else {
-				sum += num*2 - 9
-			}
+		if (l-i)%2 != 0 {
+			sum += num * 3
 		} else {
 			sum += num
 		}

@@ -2,6 +2,54 @@
 
 Pure Go implementations.
 
+## ISIN 
+
+> An International Securities Identification Number (ISIN) uniquely identifies a security. Its structure is defined in ISO 6166. The ISIN code is a 12-character alphanumeric code that serves for uniform identification of a security through normalization of the assigned National Number, where one exists, at trading and settlement.
+
+[Wikipedia](https://en.wikipedia.org/wiki/International_Securities_Identification_Number)
+
+### Usage
+
+```golang
+import (
+    "github.com/neonxp/checksum"
+    "github.com/neonxp/checksum/isin"
+)
+...
+err := isin.Check("4000000000006") // 
+switch err {
+    case checksum.ErrInvalidNumber:
+    // Not a number
+    case checksum.ErrInvalidChecksum:
+    // Invalid checksum
+    case nil:
+    // Valid number
+}
+```
+
+## Barcode EAN-8, UPC-12, EAN-13
+
+Validate barcode's checksum
+
+### Usage
+
+```golang
+import (
+    "github.com/neonxp/checksum"
+    "github.com/neonxp/checksum/barcode"
+)
+...
+err := barcode.Check("041689300494") // UPC-12 barcode
+switch err {
+    case checksum.ErrInvalidNumber:
+    // Not a number
+    case checksum.ErrInvalidChecksum:
+    // Invalid checksum
+    case nil:
+    // Valid number
+}
+```
+
 ## Luhn algorithm
 
 > The Luhn algorithm or Luhn formula, also known as the "modulus 10" or "mod 10" algorithm, named after its creator, IBM scientist Hans Peter Luhn, is a simple checksum formula used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers in the United States, Canadian Social Insurance Numbers, Israel ID Numbers, Greek Social Security Numbers (ΑΜΚΑ), and survey codes appearing on McDonald's, Taco Bell, and Tractor Supply Co. receipts. 

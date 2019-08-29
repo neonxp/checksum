@@ -7,7 +7,7 @@ import (
 	"github.com/neonxp/checksum"
 )
 
-func TestLuhn(t *testing.T) {
+func TestDamm(t *testing.T) {
 	samples := map[string]error{
 		"456126121234546": checksum.ErrInvalidChecksum,
 		"A56126121234546": checksum.ErrInvalidNumber,
