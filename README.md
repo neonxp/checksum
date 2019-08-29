@@ -1,4 +1,4 @@
-# Go implementation of collection of checksum algorithms
+# Collection of checksum algorithms on Go
 
 ## Luhn algorithm
 
