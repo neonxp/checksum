@@ -1,20 +1,17 @@
-package verhoeff
+package damm
 
 import (
+	"log"
 	"testing"
 
 	"github.com/neonxp/checksum"
 )
 
-func TestVerhoeff(t *testing.T) {
+func TestLuhn(t *testing.T) {
 	samples := map[string]error{
-		"4561261212345464":        checksum.ErrInvalidChecksum,
-		"A561261212345464":        checksum.ErrInvalidNumber,
-		"758722":                  nil,
-		"123451":                  nil,
-		"1428570":                 nil,
-		"1234567890120":           nil,
-		"84736430954837284567892": nil,
+		"456126121234546": checksum.ErrInvalidChecksum,
+		"A56126121234546": checksum.ErrInvalidNumber,
+		"5724":            nil,
 	}
 	for num, result := range samples {
 		if err := Check(num); err != result {
@@ -22,12 +19,13 @@ func TestVerhoeff(t *testing.T) {
 		}
 	}
 
-	num := "4561261212345467"
+	num := "572"
 	checksum, err := Generate(num)
 	if err != nil {
 		t.Error(err)
 	}
 	numberWithChecksum := num + checksum
+	log.Println(numberWithChecksum)
 	if err := Check(numberWithChecksum); err != nil {
 		t.Errorf("Expected no error actual %+v for %s", err, numberWithChecksum)
 	}

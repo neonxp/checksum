@@ -11,13 +11,16 @@ Pure Go implementations.
 ### Usage
 
 ```golang
-import "github.com/neonxp/checksum/luhn"
+import (
+    "github.com/neonxp/checksum"
+    "github.com/neonxp/checksum/luhn"
+)
 ...
 err := luhn.Check("4561261212345467")
 switch err {
-    case luhn.ErrInvalidNumber:
+    case checksum.ErrInvalidNumber:
     // Not a number
-    case luhn.ErrInvalidChecksum:
+    case checksum.ErrInvalidChecksum:
     // Invalid checksum
     case nil:
     // Valid number
@@ -33,14 +36,17 @@ switch err {
 ### Usage
 
 ```golang
-import "github.com/neonxp/checksum/verhoeff"
+import (
+    "github.com/neonxp/checksum"
+    "github.com/neonxp/checksum/verhoeff"
+)
 ...
 numberWithoutChecksum := "4561261212345467"
 err := verhoeff.Check(number)
 switch err {
-    case luhn.ErrInvalidNumber:
+    case checksum.ErrInvalidNumber:
     // Not a number
-    case luhn.ErrInvalidChecksum:
+    case checksum.ErrInvalidChecksum:
     // Invalid checksum
     case nil:
     // Valid number
@@ -52,6 +58,41 @@ if err != nil {
 }
 numberWithChecksum := numberWithoutChecksum + checksum
 if err := verhoeff.Check(numberWithChecksum); err != nil {
+    panic(err)
+}
+```
+
+# Damm algorithm
+
+> In error detection, the Damm algorithm is a check digit algorithm that detects all single-digit errors and all adjacent transposition errors. It was presented by H. Michael Damm in 2004.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Damm_algorithm)
+
+### Usage
+
+```golang
+import (
+    "github.com/neonxp/checksum"
+    "github.com/neonxp/checksum/damm"
+)
+...
+numberWithoutChecksum := "4561261212345467"
+err := damm.Check(number)
+switch err {
+    case checksum.ErrInvalidNumber:
+    // Not a number
+    case checksum.ErrInvalidChecksum:
+    // Invalid checksum
+    case nil:
+    // Valid number
+}
+
+checksum, err := damm.Generate(numberWithoutChecksum)
+if err != nil {
+    panic(err)
+}
+numberWithChecksum := numberWithoutChecksum + checksum
+if err := damm.Check(numberWithChecksum); err != nil {
     panic(err)
 }
 ```

@@ -14,7 +14,7 @@ func TestLuhn(t *testing.T) {
 	}
 	for num, result := range samples {
 		if err := Check(num); err != result {
-			t.Errorf("Expected %+v actual %+v", result, err)
+			t.Errorf("Expected %+v actual %+v for %s", result, err, num)
 		}
 	}
 }

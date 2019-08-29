@@ -33,7 +33,7 @@ var p = [8][10]int{
 
 var inv = [10]int{0, 4, 3, 2, 1, 5, 6, 7, 8, 9}
 
-// Check number is correct by luhn algorithm
+// Check number is correct by verhoeff algorithm
 func Check(number string) error {
 	c := 0
 	numbers := strings.Split(number, "")
